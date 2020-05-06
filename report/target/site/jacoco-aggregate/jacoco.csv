@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+exam-tsdes-report/exam-tsdes-backend,no.kristiania.exam.tsdes.backend,PasswordConfig,7,0,0,0,2,0,2,0,2,0
+exam-tsdes-report/exam-tsdes-frontend,no.kristiania.exam.tsdes,Application,8,0,0,0,3,0,2,0,2,0
+exam-tsdes-report/exam-tsdes-frontend,no.kristiania.exam.tsdes.frontend,RedirectForwardHandler,5,0,0,0,2,0,2,0,2,0
+exam-tsdes-report/exam-tsdes-frontend,no.kristiania.exam.tsdes.frontend,WebSecurityConfig,109,0,0,0,31,0,5,0,5,0

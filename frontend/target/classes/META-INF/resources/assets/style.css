@@ -1,0 +1,13 @@
+@import "bootstrap.min.css";
+
+.display-inline{
+    display:inline-block;
+}
+
+.navigation{
+    position: relative;
+    width: 97%;
+    margin:2%;
+    border:solid 1px grey;
+    border-radius: 20%;
+}
