@@ -13,6 +13,7 @@
         Home page
     </ui:define>
     <ui:define name="content">
+        <h1 class="alert alert-info text-center">Some of collectibles</h1>
         <div class="cards-parent">
             <ui:repeat value="#{collectionController.getItems(10)}" var="card">
                 <h:panelGroup styleClass="#{collectionController.isGolden(card.id)}" layout="block">

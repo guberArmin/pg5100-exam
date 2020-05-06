@@ -1,7 +1,10 @@
 package no.kristiania.exam.tsdes.frontend.controller;
 
 import no.kristiania.exam.tsdes.backend.entities.Item;
+import no.kristiania.exam.tsdes.backend.entities.User;
+import no.kristiania.exam.tsdes.backend.services.CopyService;
 import no.kristiania.exam.tsdes.backend.services.ItemService;
+import no.kristiania.exam.tsdes.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.context.RequestScoped;
@@ -15,15 +18,29 @@ public class CollectionController implements Serializable {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private CopyService copyService;
+
     public List<Item> getItems(int numberOfItems){
         return itemService.getLimitedNumberOfItems(numberOfItems,true);
     }
 
     public String isGolden(Long itemId){
+        if(itemId==null)
+            return "";
         if(itemService.getItem(itemId,false).getGolden())
             return "cardContainer golden";
         else
             return "cardContainer regular";
+    }
+
+    public boolean isDisabled(User user){
+        return user.getBalance() < 100;
+    }
+
+    public String sellDuplicate(String username, Long itemId){
+         copyService.sellOneCopyOfItem(username, itemId);
+        return "/shop.jsf?faces-redirect=true";
     }
 
 }

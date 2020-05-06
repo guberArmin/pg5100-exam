@@ -1,39 +1,70 @@
 @import "bootstrap.min.css";
 
-.display-inline{
-    display:inline-block;
+.display-inline {
+    display: inline-block;
 }
 
-.navigation{
+.navigation {
     position: relative;
-    width: 97%;
-    margin:2%;
-    border:solid 1px grey;
+    width: 87%;
+    margin: 2%;
+    box-shadow: 10px 17px 0px -6px rgba(0, 0, 0, 0.18);
     border-radius: 20%;
+    padding: 12px;
 }
 
-.cardContainer{
+.cardContainer {
     display: table;
-    border:solid grey 1px;
+    border: solid grey 1px;
     border-radius: 5px;
-    max-width: 400px;
     text-align: center;
     padding: 10px;
-    margin:30px;
+    margin: 30px;
+    flex: 1 0 100%;
+    min-height: 400px;
+    max-width: 500px;
 }
 
-.my-card-title{
+.my-card-title {
     background-color: lightblue;
 }
 
-.golden{
+.golden {
     background-color: #FFD700;
 }
 
-.regular{
+.regular {
     background-color: #F3F3F3;
 }
 
-.cards-parent{
-    display: grid;
+.cards-parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.signup-div {
+    display: inline-grid;
+    text-align: center;
+    padding: 30px;
+}
+
+.login-div {
+    display: inline-grid;
+    text-align: center;
+    padding: 30px;
+    width: 400px;
+}
+
+.hide-div {
+    display: none;
+}
+
+.my-row {
+    display: flex;
+}
+
+.my-column {
+    flex: 50%;
 }

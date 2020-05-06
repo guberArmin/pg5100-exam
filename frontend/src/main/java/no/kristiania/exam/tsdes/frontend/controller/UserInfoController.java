@@ -1,5 +1,6 @@
 package no.kristiania.exam.tsdes.frontend.controller;
 
+import no.kristiania.exam.tsdes.backend.entities.Item;
 import no.kristiania.exam.tsdes.backend.entities.User;
 import no.kristiania.exam.tsdes.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.util.List;
 
 /**
  * This class is adaptation of:
@@ -26,7 +28,11 @@ public class UserInfoController {
     }
 
     public User getUser(){
-        return userService.findUserByUserName(getUserName());
+        return userService.findUserByUserNameWithCollections(getUserName());
+    }
+
+    public boolean buyLootBox(String username){
+        return userService.buyLootBox(username);
     }
 
 }

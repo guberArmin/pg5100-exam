@@ -21,6 +21,8 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
 <div class="navigation display-inline">
     <a id="homepageLinkId" href="index.jsf" class="btn  p-1 m-3 btn-outline-primary">Home page</a>
     <sec:authenticated>
+        <a id="myCollectionBtn" class="btn  p-1 m-3 btn-info" href="collection.jsf">My collection</a>
+        <a id="storeBtn" class="btn  p-1 m-3 btn-info" href="store.jsf">Shop</a>
         <a id="logoutBtn" class="btn  p-1 m-3 btn-outline-danger" href="/logout">Logout</a>
         <h:outputLabel styleClass="display-inline">Welcome: </h:outputLabel><h:link
             class="btn  p-1 m-3 btn-outline-success" id="userID"

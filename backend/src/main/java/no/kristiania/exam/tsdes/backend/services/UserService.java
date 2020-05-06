@@ -41,7 +41,7 @@ public class UserService {
         user.setLastName(lastName);
         user.setHashedPassword(hashedPassword);
         user.setRoles(Collections.singleton(role));
-        user.setNumberOfLootBoxes(0L);
+        user.setNumberOfLootBoxes(4L);
         user.setEnabled(true);
         user.setEmail(email);
         user.setBalance(400D);//Lets give all new users some money to spend :)
@@ -91,7 +91,7 @@ public class UserService {
         return true;
     }
 
-    public void redeemLootBox(String username, List<Item> items) {
+    public void redeemLootBox(String username, List<Item> lootBox) {
         User user = em.find(User.class, username);
 
         if (user == null) {
@@ -103,7 +103,7 @@ public class UserService {
         }
 
         user.reduceNumberOfLootBoxes(1);
-        items.forEach(item -> {
+        lootBox.forEach(item -> {
             //If user owns this item, we have to update number of copies
             addItemToUser(user, item);
         });

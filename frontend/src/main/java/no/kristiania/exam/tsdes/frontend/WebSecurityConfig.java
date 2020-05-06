@@ -70,12 +70,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .dataSource(dataSource)
                     .usersByUsernameQuery(
                             "SELECT username, hashed_password, enabled " +
-                                    "FROM user " +
+                                    "FROM users " +
                                     "WHERE username = ?"
                     )
                     .authoritiesByUsernameQuery(
                             "SELECT x.username, y.roles " +
-                                    "FROM user x, user_roles y " +
+                                    "FROM users x, user_roles y " +
                                     "WHERE x.username = ? and y.user_username = x.username"
                     )
                     /*
