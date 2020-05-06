@@ -69,14 +69,14 @@ import javax.sql.DataSource;
 <span class="nc" id="L69">            auth.jdbcAuthentication()</span>
 <span class="nc" id="L70">                    .dataSource(dataSource)</span>
 <span class="nc" id="L71">                    .usersByUsernameQuery(</span>
-                            &quot;SELECT userid, hashed_password, enabled &quot; +
+                            &quot;SELECT username, hashed_password, enabled &quot; +
                                     &quot;FROM user &quot; +
-                                    &quot;WHERE userid = ?&quot;
+                                    &quot;WHERE username = ?&quot;
                     )
 <span class="nc" id="L76">                    .authoritiesByUsernameQuery(</span>
-                            &quot;SELECT x.userid, y.roles &quot; +
+                            &quot;SELECT x.username, y.roles &quot; +
                                     &quot;FROM user x, user_roles y &quot; +
-                                    &quot;WHERE x.userid = ? and y.user_userid = x.userid &quot;
+                                    &quot;WHERE x.username = ? and y.user_username = x.username&quot;
                     )
                     /*
                         Note: in BCrypt, the &quot;password&quot; field also contains the salt

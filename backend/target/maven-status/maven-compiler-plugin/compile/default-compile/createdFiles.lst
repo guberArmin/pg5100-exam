@@ -1,1 +1,8 @@
+no/kristiania/exam/tsdes/backend/entities/Item.class
 no/kristiania/exam/tsdes/backend/PasswordConfig.class
+no/kristiania/exam/tsdes/backend/services/ItemService.class
+no/kristiania/exam/tsdes/backend/entities/User.class
+no/kristiania/exam/tsdes/backend/services/UserService.class
+no/kristiania/exam/tsdes/backend/entities/CopyId.class
+no/kristiania/exam/tsdes/backend/entities/Copy.class
+no/kristiania/exam/tsdes/backend/services/CopyService.class

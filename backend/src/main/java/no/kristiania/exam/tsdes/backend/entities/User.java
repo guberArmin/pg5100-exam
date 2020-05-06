@@ -5,11 +5,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 /**
  * This class is inspired by: https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/backend/src/main/java/org/tsdes/intro/exercises/quizgame/backend/entity/User.java
  */
+
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -17,11 +19,11 @@ public class User {
     @NotBlank
     private String username;
 
-    @NotBlank
+    //Allow registration without name, as many websites allow,
     @Size(max = 128)
     private String name;
 
-    @NotBlank
+    //Allow registration without information about last name, as many websites allow,
     @Size(max = 128)
     private String lastName;
 
@@ -32,9 +34,22 @@ public class User {
     private Boolean enabled;
 
     @Email
+    @NotBlank
     @Column(unique = true)
     private String email;
 
+    @NotNull
+    private Double balance;
+
+    //At start we own no items
+    @ManyToMany
+    private List<Item> ownedItems;
+
+    //It can happen that we have no copies
+    @OneToMany(mappedBy = "copyId.user")
+    private List<Copy> ownedCopies;
+
+    private Long numberOfLootBoxes;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
@@ -42,6 +57,54 @@ public class User {
     public User() {
     }
 
+    //Could have used setter but felt easier and cleaner doing it this way
+    public void reduceBalance(int amount){
+        this.balance -= amount;
+    }
+
+    public void increaseBalance(int amount){
+        this.balance += amount;
+    }
+
+    public void reduceNumberOfLootBoxes(int amount){
+        this.numberOfLootBoxes -= amount;
+    }
+
+    public void increaseNumberOfLootBoxes(int amount){
+        this.numberOfLootBoxes += amount;
+    }
+
+    public Long getNumberOfLootBoxes() {
+        return numberOfLootBoxes;
+    }
+
+    public void setNumberOfLootBoxes(Long numberOfLootBoxes) {
+        this.numberOfLootBoxes = numberOfLootBoxes;
+    }
+
+    public List<Copy> getOwnedCopies() {
+        return ownedCopies;
+    }
+
+    public void setOwnedCopies(List<Copy> ownedCopies) {
+        this.ownedCopies = ownedCopies;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    public List<Item> getOwnedItems() {
+        return ownedItems;
+    }
+
+    public void setOwnedItems(List<Item> ownedItems) {
+        this.ownedItems = ownedItems;
+    }
 
     public Set<String> getRoles() {
         return roles;

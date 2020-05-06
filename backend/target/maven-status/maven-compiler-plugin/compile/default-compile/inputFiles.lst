@@ -1,1 +1,8 @@
 /mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/PasswordConfig.java
+/mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/entities/Item.java
+/mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/entities/Copy.java
+/mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/entities/User.java
+/mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/services/UserService.java
+/mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/services/CopyService.java
+/mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/entities/CopyId.java
+/mnt/DEA264B4A26492B7/Users/armin/Documents/Vaar_2019/exam-tsdes/backend/src/main/java/no/kristiania/exam/tsdes/backend/services/ItemService.java

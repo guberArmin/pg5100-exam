@@ -11,3 +11,29 @@
     border:solid 1px grey;
     border-radius: 20%;
 }
+
+.cardContainer{
+    display: table;
+    border:solid grey 1px;
+    border-radius: 5px;
+    max-width: 400px;
+    text-align: center;
+    padding: 10px;
+    margin:30px;
+}
+
+.my-card-title{
+    background-color: lightblue;
+}
+
+.golden{
+    background-color: #FFD700;
+}
+
+.regular{
+    background-color: #F3F3F3;
+}
+
+.cards-parent{
+    display: grid;
+}

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">exam-tsdes-report</a> &gt; <a href="../index.html" class="el_bundle">exam-tsdes-backend</a> &gt; <a href="index.source.html" class="el_package">no.kristiania.exam.tsdes.backend.services</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package no.kristiania.exam.tsdes.backend.services;
+
+import no.kristiania.exam.tsdes.backend.entities.Copy;
+import no.kristiania.exam.tsdes.backend.entities.CopyId;
+import no.kristiania.exam.tsdes.backend.entities.Item;
+import no.kristiania.exam.tsdes.backend.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * This java class is adaptation
+ * https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/backend/src/main/java/org/tsdes/intro/exercises/quizgame/backend/service/UserService.java
+ */
+@Service
+@Transactional
+<span class="fc" id="L23">public class UserService {</span>
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public boolean createUser(String userName, String name, String lastName, String password, String email, String role) {
+<span class="fc" id="L31">        String hashedPassword = passwordEncoder.encode(password);</span>
+
+        //If there is user with given username or email in database we can not create it again, return false
+<span class="pc bpc" id="L34" title="2 of 4 branches missed.">        if ((em.find(User.class, userName) != null) || (em.find(User.class, email) != null)) {</span>
+<span class="nc" id="L35">            return false;</span>
+        }
+
+<span class="fc" id="L38">        User user = new User();</span>
+<span class="fc" id="L39">        user.setUsername(userName);</span>
+<span class="fc" id="L40">        user.setName(name);</span>
+<span class="fc" id="L41">        user.setLastName(lastName);</span>
+<span class="fc" id="L42">        user.setHashedPassword(hashedPassword);</span>
+<span class="fc" id="L43">        user.setRoles(Collections.singleton(role));</span>
+<span class="fc" id="L44">        user.setNumberOfLootBoxes(0L);</span>
+<span class="fc" id="L45">        user.setEnabled(true);</span>
+<span class="fc" id="L46">        user.setEmail(email);</span>
+<span class="fc" id="L47">        user.setBalance(400D);//Lets give all new users some money to spend :)</span>
+<span class="fc" id="L48">        em.persist(user);</span>
+
+<span class="fc" id="L50">        return true;</span>
+    }
+
+    public User findUserByUserName(String userName) {
+<span class="fc" id="L54">        User user = em.find(User.class, userName);</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L56">            throw new IllegalStateException(&quot;No user with given userName&quot;);</span>
+        }
+<span class="fc" id="L58">        return user;</span>
+    }
+    //Get owned items and copies back too
+    public User findUserByUserNameWithCollections(String userName) {
+<span class="fc" id="L62">        User user = em.find(User.class, userName);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L64">            throw new IllegalStateException(&quot;No user with given userName&quot;);</span>
+        }
+<span class="fc" id="L66">        user.getOwnedItems().size();</span>
+<span class="fc" id="L67">        user.getOwnedCopies().size();</span>
+<span class="fc" id="L68">        return user;</span>
+    }
+
+    /**
+     * Loot box could have been entity, but it feels that it would be bad use of server resources
+     * Since all loot boxes are random, we can just create content for one on demand (when user wants to open it)
+     * So it is enough to hold data about number of loot boxes user owns
+     */
+    public boolean buyLootBox(String username) {
+<span class="fc" id="L77">        User user = em.find(User.class, username);</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L79">            throw new IllegalArgumentException(&quot;No existing user: &quot; + username);</span>
+        }
+
+        //One loot box costs 100 ducat
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (user.getBalance() &lt; 100) {</span>
+<span class="fc" id="L84">            throw new IllegalStateException(&quot;Insufficient funds&quot; + user.getBalance());</span>
+        }
+
+<span class="fc" id="L87">        user.reduceBalance(100);</span>
+<span class="fc" id="L88">        user.increaseNumberOfLootBoxes(1);</span>
+
+<span class="fc" id="L90">        return true;</span>
+    }
+
+    public void redeemLootBox(String username, List&lt;Item&gt; items) {
+<span class="fc" id="L94">        User user = em.find(User.class, username);</span>
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L97">            throw new IllegalArgumentException(&quot;No existing user: &quot; + username);</span>
+        }
+
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if(user.getNumberOfLootBoxes() &lt; 1){</span>
+<span class="nc" id="L101">            throw new IllegalArgumentException(&quot;You have no loot boxes to open.&quot;);</span>
+        }
+
+<span class="fc" id="L104">        user.reduceNumberOfLootBoxes(1);</span>
+<span class="fc" id="L105">        items.forEach(item -&gt; {</span>
+            //If user owns this item, we have to update number of copies
+<span class="fc" id="L107">            addItemToUser(user,item);</span>
+<span class="fc" id="L108">        });</span>
+<span class="fc" id="L109">    }</span>
+
+    public void addItemToUser(User user, Item item){
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (user.getOwnedItems().contains(item)) {</span>
+<span class="fc" id="L113">            TypedQuery&lt;Copy&gt; query = em.createNamedQuery(Copy.GET_COPY_FOR_ITEM_AND_USER, Copy.class);</span>
+<span class="fc" id="L114">            query.setParameter(&quot;username&quot;, user.getUsername());</span>
+<span class="fc" id="L115">            query.setParameter(&quot;itemId&quot;, item.getId());</span>
+
+<span class="fc" id="L117">            List&lt;Copy&gt; copyList = query.getResultList();</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">            if(copyList.isEmpty()){</span>
+<span class="fc" id="L119">                Copy copy = new Copy();</span>
+
+<span class="fc" id="L121">                CopyId copyId= new CopyId();</span>
+<span class="fc" id="L122">                copyId.setItem(item);</span>
+<span class="fc" id="L123">                copyId.setUser(user);</span>
+
+<span class="fc" id="L125">                copy.setNumberOfCopies(1L);</span>
+<span class="fc" id="L126">                copy.setCopyId(copyId);</span>
+<span class="fc" id="L127">                em.persist(copy);</span>
+<span class="fc" id="L128">            }</span>
+            else {
+<span class="fc" id="L130">                Copy copy = copyList.get(0);</span>
+<span class="fc" id="L131">                long newNumberOfCopies = copy.getNumberOfCopies() + 1;</span>
+<span class="fc" id="L132">                copy.setNumberOfCopies(newNumberOfCopies);</span>
+            }
+<span class="fc" id="L134">        }else{</span>
+<span class="fc" id="L135">            List&lt;Item&gt; list = user.getOwnedItems();</span>
+<span class="fc" id="L136">            list.add(item);</span>
+<span class="fc" id="L137">            user.setOwnedItems(list);</span>
+        }
+<span class="fc" id="L139">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

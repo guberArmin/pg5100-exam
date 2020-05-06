@@ -1,1 +1,6 @@
+no/kristiania/exam/tsdes/backend/services/ItemServiceTest.class
+no/kristiania/exam/tsdes/backend/services/UserServiceTest.class
 no/kristiania/exam/tsdes/backend/TestApplication.class
+no/kristiania/exam/tsdes/backend/services/ServiceTestBase.class
+no/kristiania/exam/tsdes/backend/services/CopyServiceTest.class
+no/kristiania/exam/tsdes/backend/services/ResetService.class

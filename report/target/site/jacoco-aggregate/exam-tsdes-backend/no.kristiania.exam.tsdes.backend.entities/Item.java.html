@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Item.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">exam-tsdes-report</a> &gt; <a href="../index.html" class="el_bundle">exam-tsdes-backend</a> &gt; <a href="index.source.html" class="el_package">no.kristiania.exam.tsdes.backend.entities</a> &gt; <span class="el_source">Item.java</span></div><h1>Item.java</h1><pre class="source lang-java linenums">package no.kristiania.exam.tsdes.backend.entities;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name = Item.GET_ALL_ITEMS, query = &quot;SELECT item FROM Item item&quot;),
+        @NamedQuery(name = Item.GET_ITEMS_BY_RARITY, query = &quot;SELECT item FROM Item item WHERE item.rarity = :rarity&quot;),
+        @NamedQuery(name = Item.COUNT_NUMBER_OF_ITEMS, query = &quot;SELECT COUNT (item) FROM Item item&quot;)
+})
+public class Item {
+    public static final String GET_ALL_ITEMS=&quot;GET_ALL_ITEMS&quot;;
+    public static final String GET_ITEMS_BY_RARITY=&quot;GET_ITEMS_BY_RARITY&quot;;
+    public static final String COUNT_NUMBER_OF_ITEMS=&quot;COUNT_NUMBER_OF_ITEMS&quot;;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @NotBlank
+    @Size(max = 128) //I feel that this is more then enough for title
+    private String title;
+
+    @NotBlank
+    private String description;
+
+    @NotNull
+    @Min(0)
+    @Max(50) //Should be more then enough for hearthstone cards
+    private Integer attack;
+
+    @NotNull
+    @Min(0)
+    @Max(50) //Should be more then enough for hearthstone cards
+    private Integer defense;
+
+    //Standard, common, rare ...
+    @NotNull
+    private String rarity;
+
+    //Especially valuable type of cards
+    @NotNull
+    private Boolean isGolden;
+
+    //One user can have multiple cards
+    //One card can be owned by many users
+    //Lazy fetch is fine here, no need to set FetchType.EAGER as I do not expect to access this data often
+    @ManyToMany(mappedBy = &quot;ownedItems&quot;)
+    private List&lt;User&gt; ownedBy;
+
+    //This can be null, as there could be that no user owns copy of this card, yet
+    @OneToMany(mappedBy = &quot;copyId.item&quot;)
+    private List&lt;Copy&gt; copies;
+
+<span class="fc" id="L57">    public Item() {</span>
+<span class="fc" id="L58">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L61">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L65">        this.id = id;</span>
+<span class="nc" id="L66">    }</span>
+
+    public String getTitle() {
+<span class="fc" id="L69">        return title;</span>
+    }
+
+    public void setTitle(String title) {
+<span class="fc" id="L73">        this.title = title;</span>
+<span class="fc" id="L74">    }</span>
+
+    public String getDescription() {
+<span class="nc" id="L77">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="fc" id="L81">        this.description = description;</span>
+<span class="fc" id="L82">    }</span>
+
+    public Integer getAttack() {
+<span class="fc" id="L85">        return attack;</span>
+    }
+
+    public void setAttack(Integer attack) {
+<span class="fc" id="L89">        this.attack = attack;</span>
+<span class="fc" id="L90">    }</span>
+
+    public Integer getDefense() {
+<span class="fc" id="L93">        return defense;</span>
+    }
+
+    public void setDefense(Integer defense) {
+<span class="fc" id="L97">        this.defense = defense;</span>
+<span class="fc" id="L98">    }</span>
+
+    public String getRarity() {
+<span class="nc" id="L101">        return rarity;</span>
+    }
+
+    public void setRarity(String rarity) {
+<span class="fc" id="L105">        this.rarity = rarity;</span>
+<span class="fc" id="L106">    }</span>
+
+    public Boolean getGolden() {
+<span class="nc" id="L109">        return isGolden;</span>
+    }
+
+    public void setGolden(Boolean golden) {
+<span class="fc" id="L113">        isGolden = golden;</span>
+<span class="fc" id="L114">    }</span>
+
+    public List&lt;User&gt; getOwnedBy() {
+<span class="fc" id="L117">        return ownedBy;</span>
+    }
+
+    public void setOwnedBy(List&lt;User&gt; ownedBy) {
+<span class="nc" id="L121">        this.ownedBy = ownedBy;</span>
+<span class="nc" id="L122">    }</span>
+
+    public List&lt;Copy&gt; getCopies() {
+<span class="nc" id="L125">        return copies;</span>
+    }
+
+    public void setCopies(List&lt;Copy&gt; copies) {
+<span class="nc" id="L129">        this.copies = copies;</span>
+<span class="nc" id="L130">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

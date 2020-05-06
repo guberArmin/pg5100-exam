@@ -3,7 +3,7 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
       xml:lang="en" lang="en">
 <head>
     <title>Home page</title>
@@ -13,7 +13,21 @@
         Home page
     </ui:define>
     <ui:define name="content">
-        <h1>Hello world</h1>
+        <div class="cards-parent">
+            <ui:repeat value="#{collectionController.getItems(10)}" var="card">
+                <h:panelGroup styleClass="#{collectionController.isGolden(card.id)}" layout="block">
+                    <h3 class="my-card-title">#{card.title}</h3>
+                    <hr/>
+                    <h:outputLabel>#{card.description}</h:outputLabel>
+                    <hr/>
+                    <h:outputLabel styleClass="alert alert-danger attack">Attack: #{card.attack}</h:outputLabel>
+                    <h:outputLabel styleClass="alert alert-dark">Defense: #{card.defense}</h:outputLabel>
+                    <hr/>
+                    <h:outputLabel>Rarity: #{card.rarity}</h:outputLabel><br/>
+                    <h:outputLabel>Is golden: #{card.golden}</h:outputLabel>
+                </h:panelGroup>
+            </ui:repeat>
+        </div>
     </ui:define>
 </ui:composition>
 </html>
