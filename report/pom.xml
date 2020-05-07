@@ -9,8 +9,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>exam-tsdes-report</artifactId>
     <parent>
-        <groupId>no.kristiania.exam.in.tsdes</groupId>
-        <artifactId>exam-in-tsdes</artifactId>
+        <groupId>no.kristiania.exam.tsdes</groupId>
+        <artifactId>exam-tsdes</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <packaging>jar</packaging>
@@ -18,12 +18,12 @@
     <dependencies>
 
         <dependency>
-            <groupId>no.kristiania.exam.in.tsdes</groupId>
+            <groupId>no.kristiania.exam.tsdes</groupId>
             <artifactId>exam-tsdes-backend</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>no.kristiania.exam.in.tsdes</groupId>
+            <groupId>no.kristiania.exam.tsdes</groupId>
             <artifactId>exam-tsdes-frontend</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

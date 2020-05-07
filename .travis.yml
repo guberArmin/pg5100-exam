@@ -1,4 +1,4 @@
-# This file is copy of https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/.travis.yml
+# This file is adaptation of https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/.travis.yml
 
 # Specify we are working with a Java project.
 # Travis can be used also for many other languages.
@@ -25,3 +25,4 @@ notifications:
 # Note: Travis has a quite limited handling of build log files, so need
 # to minimize them, ie do not be too verbose
 script: mvn clean verify --fae
+

@@ -11,8 +11,8 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>no.kristiania.exam.in.tsdes</groupId>
-        <artifactId>exam-in-tsdes</artifactId>
+        <groupId>no.kristiania.exam.tsdes</groupId>
+        <artifactId>exam-tsdes</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <build>
