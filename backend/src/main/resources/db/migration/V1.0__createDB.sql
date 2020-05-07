@@ -25,7 +25,7 @@ create table user_roles
 create table users
 (
     username             varchar(255) not null,
-    balance              real       not null,
+    balance              double precision     not null,
     email                varchar(255),
     enabled              boolean      not null,
     hashed_password      varchar(255),

@@ -39,6 +39,7 @@ public class User {
     private String email;
 
     @NotNull
+    @Column(columnDefinition = "REAL FLOAT")
     private Double balance;
 
     //At start we own no items

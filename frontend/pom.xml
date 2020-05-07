@@ -29,6 +29,16 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
             <!-- Coverage report -->
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -90,7 +100,11 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
                     <argLine>${argLine} -Xms512m -Xmx4096m</argLine>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M4</version>
+            </plugin>
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -153,14 +167,11 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
     </build>
 
     <dependencies>
-
         <dependency>
             <groupId>no.kristiania.exam.tsdes</groupId>
             <artifactId>exam-tsdes-backend</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-
         <!-- Added for some special functionality -->
         <dependency>
             <groupId>org.primefaces</groupId>
