@@ -5,3 +5,5 @@ Show missing cards
 User page style
 
 show duplicates 
+
+Intellij invalidete caches/restart for jacoco to work
