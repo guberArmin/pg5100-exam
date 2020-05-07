@@ -20,6 +20,7 @@ public class Item {
     private Long id;
 
     @NotBlank
+    @Column(unique = true)//No two cards can have same name, at least not in Hearthstone I am creating simulation of
     @Size(max = 128) //I feel that this is more then enough for title
     private String title;
 
@@ -51,7 +52,7 @@ public class Item {
     private List<User> ownedBy;
 
     //This can be null, as there could be that no user owns copy of this card, yet
-    @OneToMany(mappedBy = "copyId.item")
+    @OneToMany(mappedBy = "copyId.item", cascade = CascadeType.ALL)
     private List<Copy> copies;
 
     public Item() {

@@ -37,14 +37,23 @@ public class CopyServiceTest extends ServiceTestBase {
         lootBox.add(item);
         userService.redeemLootBox(user.getUsername(), lootBox);
         copyService.getAllCopies();
+        user = userService.findUserByUserNameWithCollections(user.getUsername());
 
         //Lets get latest user data
         user = userService.findUserByUserNameWithCollections(user.getUsername());
+        Double originalBalance = user.getBalance();
         assertEquals(1, user.getOwnedItems().size());
         assertEquals(2, user.getOwnedCopies().get(0).getNumberOfCopies(), DELTA);
 
         List<Copy> listOfCopies = copyService.getAllCopies();
         assertEquals(1, listOfCopies.size(), DELTA);
+
+        //Lets get latest user data
+        copyService.sellOneCopyOfItem(user.getUsername(),item.getId()) ;
+        user = userService.findUserByUserNameWithCollections(user.getUsername());
+        ;
+        assertEquals(originalBalance + 25, user.getBalance(), DELTA);
+
 
     }
 

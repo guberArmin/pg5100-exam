@@ -139,6 +139,7 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
     </build>
 
     <dependencies>
+        <!-- Added for some special functionality -->
         <dependency>
             <groupId>no.kristiania.exam.in.tsdes</groupId>
             <artifactId>exam-tsdes-backend</artifactId>

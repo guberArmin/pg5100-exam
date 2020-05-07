@@ -1,8 +1,9 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 exam-tsdes-backend,no.kristiania.exam.tsdes.backend,PasswordConfig,0,7,0,0,0,2,0,2,0,2
-exam-tsdes-backend,no.kristiania.exam.tsdes.backend.services,ItemService,19,182,5,17,5,43,4,15,0,8
-exam-tsdes-backend,no.kristiania.exam.tsdes.backend.services,CopyService,0,49,0,0,0,12,0,2,0,2
-exam-tsdes-backend,no.kristiania.exam.tsdes.backend.services,UserService,29,232,7,13,6,60,7,11,0,8
+exam-tsdes-backend,no.kristiania.exam.tsdes.backend.services,ItemService,18,207,4,22,4,50,5,18,1,9
+exam-tsdes-backend,no.kristiania.exam.tsdes.backend.services,CopyService,19,64,1,1,5,16,1,3,0,3
+exam-tsdes-backend,no.kristiania.exam.tsdes.backend.services,DefaultDataInitializerService,3,540,0,0,2,124,0,21,0,21
+exam-tsdes-backend,no.kristiania.exam.tsdes.backend.services,UserService,29,248,7,13,6,64,7,12,0,9
 exam-tsdes-backend,no.kristiania.exam.tsdes.backend.entities,User,19,101,0,0,7,36,6,21,6,21
 exam-tsdes-backend,no.kristiania.exam.tsdes.backend.entities,Copy,3,14,0,0,1,7,1,4,1,4
 exam-tsdes-backend,no.kristiania.exam.tsdes.backend.entities,CopyId,6,11,0,0,2,6,2,3,2,3

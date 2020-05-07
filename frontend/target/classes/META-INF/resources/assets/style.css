@@ -4,13 +4,27 @@
     display: inline-block;
 }
 
+.btn {
+    border-radius: 0 !important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 0.75rem;
+    border: solid 1px skyblue;
+}
+
+.welcomeLabel{
+    margin-bottom: 0 !important;
+    padding-left: 30px;
+    font-weight: bold;
+}
+
 .navigation {
-    position: relative;
-    width: 87%;
-    margin: 2%;
-    box-shadow: 10px 17px 0px -6px rgba(0, 0, 0, 0.18);
-    border-radius: 20%;
-    padding: 12px;
+    width: 100%;
+    background: lemonchiffon;
+    box-shadow: inset 0 0 3px #000000;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding-top: 10px;
 }
 
 .cardContainer {
@@ -44,17 +58,20 @@
     flex-wrap: wrap;
 }
 
-.signup-div {
-    display: inline-grid;
+
+.login-div {
     text-align: center;
     padding: 30px;
 }
 
-.login-div {
-    display: inline-grid;
-    text-align: center;
-    padding: 30px;
-    width: 400px;
+.login-div > input {
+    margin: 10px;
+}
+
+.login-div > label {
+    display: inline-block;
+    width: 210px;
+    text-align: left;
 }
 
 .hide-div {

@@ -19,7 +19,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
-<span class="nc" id="L22">public class WebSecurityConfig extends WebSecurityConfigurerAdapter {</span>
+<span class="fc" id="L22">public class WebSecurityConfig extends WebSecurityConfigurerAdapter {</span>
 
     @Autowired
     private DataSource dataSource;
@@ -30,61 +30,61 @@ import javax.sql.DataSource;
     @Bean
     @Override
     public UserDetailsService userDetailsServiceBean() throws Exception {
-<span class="nc" id="L33">        return super.userDetailsServiceBean();</span>
+<span class="fc" id="L33">        return super.userDetailsServiceBean();</span>
     }
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-<span class="nc" id="L39">        return super.authenticationManagerBean();</span>
+<span class="fc" id="L39">        return super.authenticationManagerBean();</span>
     }
 
     @Override
     protected void configure(HttpSecurity http) {
         try {
-<span class="nc" id="L45">            http.csrf().disable();</span>
-<span class="nc" id="L46">            http.authorizeRequests()</span>
-<span class="nc" id="L47">                    .antMatchers(&quot;/&quot;, &quot;/index.jsf&quot;, &quot;/details.jsf&quot;, &quot;/signup.jsf&quot;, &quot;/assets/**&quot;).permitAll()</span>
-<span class="nc" id="L48">                    .antMatchers(&quot;/javax.faces.resource/**&quot;).permitAll()</span>
-<span class="nc" id="L49">                    .antMatchers(&quot;/ui/**&quot;).authenticated()</span>
-<span class="nc" id="L50">                    .anyRequest().authenticated()</span>
-<span class="nc" id="L51">                    .and()</span>
-<span class="nc" id="L52">                    .formLogin()</span>
-<span class="nc" id="L53">                    .loginPage(&quot;/login.jsf&quot;)</span>
-<span class="nc" id="L54">                    .permitAll()</span>
-<span class="nc" id="L55">                    .failureUrl(&quot;/login.jsf?error=true&quot;)</span>
-<span class="nc" id="L56">                    .defaultSuccessUrl(&quot;/index.jsf&quot;)</span>
-<span class="nc" id="L57">                    .and()</span>
-<span class="nc" id="L58">                    .logout()</span>
-<span class="nc" id="L59">                    .logoutSuccessUrl(&quot;/index.jsf&quot;);</span>
+<span class="fc" id="L45">            http.csrf().disable();</span>
+<span class="fc" id="L46">            http.authorizeRequests()</span>
+<span class="fc" id="L47">                    .antMatchers(&quot;/&quot;, &quot;/index.jsf&quot;, &quot;/details.jsf&quot;, &quot;/signup.jsf&quot;, &quot;/assets/**&quot;).permitAll()</span>
+<span class="fc" id="L48">                    .antMatchers(&quot;/javax.faces.resource/**&quot;).permitAll()</span>
+<span class="fc" id="L49">                    .antMatchers(&quot;/ui/**&quot;).authenticated()</span>
+<span class="fc" id="L50">                    .anyRequest().authenticated()</span>
+<span class="fc" id="L51">                    .and()</span>
+<span class="fc" id="L52">                    .formLogin()</span>
+<span class="fc" id="L53">                    .loginPage(&quot;/login.jsf&quot;)</span>
+<span class="fc" id="L54">                    .permitAll()</span>
+<span class="fc" id="L55">                    .failureUrl(&quot;/login.jsf?error=true&quot;)</span>
+<span class="fc" id="L56">                    .defaultSuccessUrl(&quot;/index.jsf&quot;)</span>
+<span class="fc" id="L57">                    .and()</span>
+<span class="fc" id="L58">                    .logout()</span>
+<span class="fc" id="L59">                    .logoutSuccessUrl(&quot;/index.jsf&quot;);</span>
 <span class="nc" id="L60">        } catch (Exception ex) {</span>
 <span class="nc" id="L61">            throw new RuntimeException(ex);</span>
-<span class="nc" id="L62">        }</span>
-<span class="nc" id="L63">    }</span>
+<span class="fc" id="L62">        }</span>
+<span class="fc" id="L63">    }</span>
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
 
         try {
-<span class="nc" id="L69">            auth.jdbcAuthentication()</span>
-<span class="nc" id="L70">                    .dataSource(dataSource)</span>
-<span class="nc" id="L71">                    .usersByUsernameQuery(</span>
+<span class="fc" id="L69">            auth.jdbcAuthentication()</span>
+<span class="fc" id="L70">                    .dataSource(dataSource)</span>
+<span class="fc" id="L71">                    .usersByUsernameQuery(</span>
                             &quot;SELECT username, hashed_password, enabled &quot; +
-                                    &quot;FROM user &quot; +
+                                    &quot;FROM users &quot; +
                                     &quot;WHERE username = ?&quot;
                     )
-<span class="nc" id="L76">                    .authoritiesByUsernameQuery(</span>
+<span class="fc" id="L76">                    .authoritiesByUsernameQuery(</span>
                             &quot;SELECT x.username, y.roles &quot; +
-                                    &quot;FROM user x, user_roles y &quot; +
+                                    &quot;FROM users x, user_roles y &quot; +
                                     &quot;WHERE x.username = ? and y.user_username = x.username&quot;
                     )
                     /*
                         Note: in BCrypt, the &quot;password&quot; field also contains the salt
                      */
-<span class="nc" id="L84">                    .passwordEncoder(passwordEncoder);</span>
+<span class="fc" id="L84">                    .passwordEncoder(passwordEncoder);</span>
 <span class="nc" id="L85">        } catch (Exception e) {</span>
 <span class="nc" id="L86">            throw new RuntimeException(e);</span>
-<span class="nc" id="L87">        }</span>
-<span class="nc" id="L88">    }</span>
+<span class="fc" id="L87">        }</span>
+<span class="fc" id="L88">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

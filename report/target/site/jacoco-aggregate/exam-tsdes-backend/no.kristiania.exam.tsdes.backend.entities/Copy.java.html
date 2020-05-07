@@ -7,13 +7,14 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 
-
 @NamedQueries({
-        @NamedQuery(name = Copy.GET_COPY_FOR_ITEM_AND_USER, query = &quot;SELECT c FROM Copy c WHERE c.copyId.user.username = :username AND c.copyId.item.id = :itemId&quot;)
+        @NamedQuery(name = Copy.GET_COPY_FOR_ITEM_AND_USER, query = &quot;SELECT c FROM Copy c WHERE c.copyId.user.username = :username AND c.copyId.item.id = :itemId&quot;),
+        @NamedQuery(name = Copy.GET_ALL_COPIES, query = &quot;SELECT c FROM Copy c &quot;)
 })
 @Entity
 public class Copy {
-    public static final String GET_COPY_FOR_ITEM_AND_USER =&quot;GET_COPY_FOR_ITEM_AND_USER&quot;;
+    public static final String GET_COPY_FOR_ITEM_AND_USER = &quot;GET_COPY_FOR_ITEM_AND_USER&quot;;
+    public static final String GET_ALL_COPIES = &quot;GET_ALL_COPIES&quot;;
 
     @EmbeddedId
     private CopyId copyId;
@@ -21,23 +22,23 @@ public class Copy {
     @NotNull
     private Long numberOfCopies;
 
-<span class="fc" id="L24">    public Copy() {</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L25">    public Copy() {</span>
+<span class="fc" id="L26">    }</span>
 
     public CopyId getCopyId() {
-<span class="nc" id="L28">        return copyId;</span>
+<span class="fc" id="L29">        return copyId;</span>
     }
 
     public void setCopyId(CopyId copyId) {
-<span class="fc" id="L32">        this.copyId = copyId;</span>
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L33">        this.copyId = copyId;</span>
+<span class="fc" id="L34">    }</span>
 
     public Long getNumberOfCopies() {
-<span class="fc" id="L36">        return numberOfCopies;</span>
+<span class="fc" id="L37">        return numberOfCopies;</span>
     }
 
     public void setNumberOfCopies(Long numberOfCopies) {
-<span class="fc" id="L40">        this.numberOfCopies = numberOfCopies;</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L41">        this.numberOfCopies = numberOfCopies;</span>
+<span class="fc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

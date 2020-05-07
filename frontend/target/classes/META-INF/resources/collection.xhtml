@@ -65,7 +65,7 @@
                                 <h:outputLabel styleClass="alert alert-dark">Defense: #{card.defense}</h:outputLabel>
                                 <hr/>
                                 <h:outputLabel>Rarity: #{card.rarity}</h:outputLabel><br/>
-                                <h:outputLabel>Number of copies: #{copy.numberOfCopies}</h:outputLabel>
+                                <h:outputLabel>Number of copies: <p class="numberOfCopies">#{copy.numberOfCopies}</p></h:outputLabel>
                             </h:panelGroup>
                         </ui:repeat>
                     </div>
@@ -74,7 +74,7 @@
 
             <div class="my-column">
                 <div class="m-3">
-                    <h:outputLabel>You have: #{userInfoController.user.numberOfLootBoxes} loot boxes</h:outputLabel>
+                    <h:outputLabel id="lootBoxNrLabel">You have: <p id ="numberOfBoxesParagraph">#{userInfoController.user.numberOfLootBoxes}</p> loot boxes</h:outputLabel>
                     <h:form rendered="#{userInfoController.user.numberOfLootBoxes > 0}" prependId="false"
                             id="redeemForm">
                         <h:commandButton value="Reedeem box"

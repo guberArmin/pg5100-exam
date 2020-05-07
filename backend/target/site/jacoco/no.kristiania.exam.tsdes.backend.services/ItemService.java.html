@@ -59,17 +59,26 @@ import java.util.concurrent.ThreadLocalRandom;
 <span class="fc" id="L59">        return item;</span>
     }
 
-    public List&lt;Item&gt; getLimitedNumberOfItems(int numberOfItems) {
+    public List&lt;Item&gt; getLimitedNumberOfItems(int numberOfItems,boolean withOwners) {
         //Could check if numberOfItems is negative,
         //but there is no need, as setMaxResults is throwing exception in case it is
 <span class="fc" id="L65">        TypedQuery&lt;Item&gt; query = entityManager.createNamedQuery(Item.GET_ALL_ITEMS, Item.class);</span>
 
-<span class="fc" id="L67">        return query.setMaxResults(numberOfItems).getResultList();</span>
+<span class="fc" id="L67">        List&lt;Item&gt; items = query.setMaxResults(numberOfItems).getResultList();</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if(withOwners){</span>
+<span class="nc" id="L69">            items.forEach(e-&gt;e.getOwnedBy().size());</span>
+        }
+<span class="fc" id="L71">        return items;</span>
     }
 
-    public List&lt;Item&gt; getAllItems() {
-<span class="fc" id="L71">        TypedQuery&lt;Item&gt; query = entityManager.createNamedQuery(Item.GET_ALL_ITEMS, Item.class);</span>
-<span class="fc" id="L72">        return query.getResultList();</span>
+    public List&lt;Item&gt; getAllItems(boolean withOwners) {
+<span class="fc" id="L75">        TypedQuery&lt;Item&gt; query = entityManager.createNamedQuery(Item.GET_ALL_ITEMS, Item.class);</span>
+<span class="fc" id="L76">        List&lt;Item&gt; allItems = query.getResultList();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if(withOwners){</span>
+<span class="fc" id="L78">            allItems.forEach(e -&gt; e.getOwnedBy().size());</span>
+        }
+
+<span class="fc" id="L81">        return allItems;</span>
     }
 
 
@@ -80,14 +89,14 @@ import java.util.concurrent.ThreadLocalRandom;
     public List&lt;Item&gt; getLootBox(int numberOfItemsInBox) {
         //In case database is empty no point to do any search
         //Same goes if we have no enough items in database
-<span class="fc" id="L83">        Long numberOfItemsInDatabase = entityManager.createNamedQuery(Item.COUNT_NUMBER_OF_ITEMS, Long.class).getSingleResult();</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (numberOfItemsInDatabase == 0)</span>
-<span class="fc" id="L85">            return null;</span>
-<span class="fc" id="L86">        List&lt;Item&gt; lootBox = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (int i = 0; i &lt; numberOfItemsInBox; i++) {</span>
-<span class="fc" id="L88">            lootBox.add(getRandomItem());</span>
+<span class="fc" id="L92">        Long numberOfItemsInDatabase = entityManager.createNamedQuery(Item.COUNT_NUMBER_OF_ITEMS, Long.class).getSingleResult();</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (numberOfItemsInDatabase == 0)</span>
+<span class="fc" id="L94">            return null;</span>
+<span class="fc" id="L95">        List&lt;Item&gt; lootBox = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        for (int i = 0; i &lt; numberOfItemsInBox; i++) {</span>
+<span class="fc" id="L97">            lootBox.add(getRandomItem());</span>
         }
-<span class="fc" id="L90">        return lootBox;</span>
+<span class="fc" id="L99">        return lootBox;</span>
     }
 
     //For creation of loot boxes we are going to need some random items
@@ -100,41 +109,41 @@ import java.util.concurrent.ThreadLocalRandom;
         //If we get number from [0.85 to 0.95) you get epic card
         //If we get number from [0.95 to 1) you get legendary card
         String rarityParameter;
-<span class="fc" id="L103">        List&lt;Item&gt; allItemsWithRarity = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L112">        List&lt;Item&gt; allItemsWithRarity = new ArrayList&lt;&gt;();</span>
         //In case we have no cards of given rarity try again. This could be useful if we plan to add some rarity later
         //but would like to have it from start
-<span class="fc bfc" id="L106" title="All 2 branches covered.">        while (allItemsWithRarity.size() == 0) {</span>
-<span class="fc" id="L107">            double randomNumber = ThreadLocalRandom.current().nextDouble(0, 1);</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">            if (randomNumber &lt; 0.5) {</span>
-<span class="fc" id="L109">                rarityParameter = &quot;standard&quot;;</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">            } else if (compareDoubles(randomNumber, 0.5, 0.7)) {</span>
-<span class="fc" id="L111">                rarityParameter = &quot;common&quot;;</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            } else if (compareDoubles(randomNumber, 0.7,0.85)) {</span>
-<span class="fc" id="L113">                rarityParameter = &quot;rare&quot;;</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">            } else if (compareDoubles(randomNumber, 0.85, 0.95)) {</span>
-<span class="nc" id="L115">                rarityParameter = &quot;epic&quot;;</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        while (allItemsWithRarity.size() == 0) {</span>
+<span class="fc" id="L116">            double randomNumber = ThreadLocalRandom.current().nextDouble(0, 1);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">            if (randomNumber &lt; 0.5) {</span>
+<span class="fc" id="L118">                rarityParameter = &quot;standard&quot;;</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">            } else if (compareDoubles(randomNumber, 0.5, 0.7)) {</span>
+<span class="fc" id="L120">                rarityParameter = &quot;common&quot;;</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">            } else if (compareDoubles(randomNumber, 0.7, 0.85)) {</span>
+<span class="fc" id="L122">                rarityParameter = &quot;rare&quot;;</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">            } else if (compareDoubles(randomNumber, 0.85, 0.95)) {</span>
+<span class="fc" id="L124">                rarityParameter = &quot;epic&quot;;</span>
             } else {
-<span class="nc" id="L117">                rarityParameter = &quot;legendary&quot;;</span>
+<span class="nc" id="L126">                rarityParameter = &quot;legendary&quot;;</span>
             }
 
-<span class="fc" id="L120">            TypedQuery&lt;Item&gt; query = entityManager.createNamedQuery(Item.GET_ITEMS_BY_RARITY, Item.class);</span>
-<span class="fc" id="L121">            query.setParameter(&quot;rarity&quot;, rarityParameter);</span>
-<span class="fc" id="L122">            allItemsWithRarity = query.getResultList();</span>
-<span class="fc" id="L123">        }</span>
+<span class="fc" id="L129">            TypedQuery&lt;Item&gt; query = entityManager.createNamedQuery(Item.GET_ITEMS_BY_RARITY, Item.class);</span>
+<span class="fc" id="L130">            query.setParameter(&quot;rarity&quot;, rarityParameter);</span>
+<span class="fc" id="L131">            allItemsWithRarity = query.getResultList();</span>
+<span class="fc" id="L132">        }</span>
 
-<span class="fc" id="L125">        return allItemsWithRarity.get(ThreadLocalRandom.current().nextInt(0, allItemsWithRarity.size()));</span>
+<span class="fc" id="L134">        return allItemsWithRarity.get(ThreadLocalRandom.current().nextInt(0, allItemsWithRarity.size()));</span>
     }
 
     //Direct comparison of two doubles is not good idea
     //We have to take in account that it could be some minor differences that we are not interested in
-    private boolean compareDoubles(double number,double lowerBound, double upperBound) {
+    private boolean compareDoubles(double number, double lowerBound, double upperBound) {
         //Inspired by https://howtodoinjava.com/java/basics/correctly-compare-float-double/
         //In my case 3 decimal places is just good enough when it comes to accuracy
-<span class="fc" id="L133">        final double THRESHOLD = .001;</span>
-<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        if(number - lowerBound &gt; THRESHOLD)</span>
-<span class="fc bfc" id="L135" title="All 2 branches covered.">            return upperBound-number &gt; 0;</span>
+<span class="fc" id="L142">        final double THRESHOLD = .001;</span>
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        if (number - lowerBound &gt; THRESHOLD)</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            return upperBound - number &gt; 0;</span>
         else
-<span class="nc" id="L137">            return false;</span>
+<span class="nc" id="L146">            return false;</span>
     }
 
 

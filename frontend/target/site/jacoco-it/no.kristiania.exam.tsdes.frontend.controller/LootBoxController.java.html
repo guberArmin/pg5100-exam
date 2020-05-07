@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LootBoxController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">exam-tsdes-frontend</a> &gt; <a href="index.source.html" class="el_package">no.kristiania.exam.tsdes.frontend.controller</a> &gt; <span class="el_source">LootBoxController.java</span></div><h1>LootBoxController.java</h1><pre class="source lang-java linenums">package no.kristiania.exam.tsdes.frontend.controller;
+
+import no.kristiania.exam.tsdes.backend.entities.Item;
+import no.kristiania.exam.tsdes.backend.services.ItemService;
+import no.kristiania.exam.tsdes.backend.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
+
+@SessionScoped
+@Named
+<span class="fc" id="L15">public class LootBoxController implements Serializable {</span>
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private UserService userService;
+
+    private List&lt;Item&gt; lootBoxContent;
+
+    public String redeemLootBox(String username) {
+<span class="fc" id="L25">        this.lootBoxContent = itemService.getLootBox(3);</span>
+<span class="fc" id="L26">        userService.redeemLootBox(username, lootBoxContent);</span>
+<span class="fc" id="L27">        return &quot;/collection.jsf?isLooted=true&amp;faces-redirect=true&quot;;</span>
+    }
+
+    public List&lt;Item&gt; getLootBoxContent() {
+<span class="fc" id="L31">        return lootBoxContent;</span>
+    }
+
+    public void setLootBoxContent(List&lt;Item&gt; lootBoxContent) {
+<span class="nc" id="L35">        this.lootBoxContent = lootBoxContent;</span>
+<span class="nc" id="L36">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

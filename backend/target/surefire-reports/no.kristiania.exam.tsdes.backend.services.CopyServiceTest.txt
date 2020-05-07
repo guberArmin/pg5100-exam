@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: no.kristiania.exam.tsdes.backend.services.CopyServiceTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.125 s - in no.kristiania.exam.tsdes.backend.services.CopyServiceTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.587 s - in no.kristiania.exam.tsdes.backend.services.CopyServiceTest

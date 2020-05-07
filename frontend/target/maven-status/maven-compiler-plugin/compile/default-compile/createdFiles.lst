@@ -1,3 +1,7 @@
+no/kristiania/exam/tsdes/frontend/controller/CollectionController.class
+no/kristiania/exam/tsdes/frontend/controller/LootBoxController.class
+no/kristiania/exam/tsdes/frontend/SignUpController.class
+no/kristiania/exam/tsdes/frontend/RedirectForwardHandler.class
 no/kristiania/exam/tsdes/frontend/WebSecurityConfig.class
 no/kristiania/exam/tsdes/Application.class
-no/kristiania/exam/tsdes/frontend/RedirectForwardHandler.class
+no/kristiania/exam/tsdes/frontend/controller/UserInfoController.class

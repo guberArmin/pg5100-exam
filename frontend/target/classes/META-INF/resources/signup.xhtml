@@ -18,33 +18,41 @@
     <ui:define name="content">
 
         <h:form prependId="false">
-            <div class="signup-div">
+            <div class="d-flex justify-content-center">
 
+                <div class="login-div">
+                    <h:outputLabel value="Username*: ">
+                        <h:inputText required="true" id="username" value="#{signUpController.username}"/>
+                    </h:outputLabel><br/>
 
-                <h:outputText value="Username*: "/>
-                <h:inputText required="true" id="username" value="#{signUpController.username}"/><br/>
+                    <h:outputLabel value="Password*: ">
+                        <h:inputSecret required="true" id="password"
+                                       value="#{signUpController.password}"/>
+                    </h:outputLabel><br/>
 
-                <h:outputText value="Password*: "/>
-                <h:inputSecret required="true" id="password" value="#{signUpController.password}"/><br/>
+                    <h:outputLabel value="Name: ">
+                        <h:inputText id="nameInput" value="#{signUpController.name}"/>
+                    </h:outputLabel><br/>
 
-                <h:outputText value="Name: "/>
-                <h:inputText id="nameInput" value="#{signUpController.name}"/><br/>
+                    <h:outputLabel value="Last name: ">
+                        <h:inputText id="lastNameInput" value="#{signUpController.lastName}"/>
+                    </h:outputLabel><br/>
 
-                <h:outputText value="Last name: "/>
-                <h:inputText id="lastNameInput" value="#{signUpController.lastName}"/><br/>
+                    <!-- adaptation of : https://stackoverflow.com/a/7932428/3532722-->
+                    <h:outputLabel value="Email*:">
+                        <h:inputText id="email" value="#{signUpController.email}" required="true" label="Email"
+                                     validatorMessage="Email is not valid">
+                            <f:validateRegex
+                                    pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+                        </h:inputText>
+                    </h:outputLabel><br/>
 
-                <!-- adaptation of : https://stackoverflow.com/a/7932428/3532722-->
-                <h:outputText value="Email*:"/>
-                <h:inputText id="email" value="#{signUpController.email}" required="true" label="Email"
-                             validatorMessage="Email is not valid">
-                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
-                </h:inputText>
-
-                <h:commandButton styleClass="btn btn-success mt-3" id="signUpBtn" value="Sign Up"
-                                 action="#{signUpController.signUpUser}"
-                />
-                <h:outputLabel styleClass="alert alert-danger m-3" value="User and/or password are wrong."
-                               rendered="${!empty param['error']}"/>
+                    <h:commandButton styleClass="btn btn-success mt-3" id="signUpBtn" value="Sign Up"
+                                     action="#{signUpController.signUpUser}"
+                    /><br/>
+                    <h:outputLabel styleClass="alert alert-danger m-3" value="User and/or password are wrong."
+                                   rendered="${!empty param['error']}"/>
+                </div>
             </div>
         </h:form>
 

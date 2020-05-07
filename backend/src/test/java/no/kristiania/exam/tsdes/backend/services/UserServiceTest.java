@@ -78,13 +78,14 @@ public class UserServiceTest extends ServiceTestBase {
     @Test
     public void testBuyLootBox() {
         //Since every new user gets 400 ducats we know we can buy loot boxes
+        //Also every user starts with 4 loot boxes
         User user = getRandomUser();
-        assertEquals(0,  user.getNumberOfLootBoxes(), DELTA);
+        assertEquals(4,  user.getNumberOfLootBoxes(), DELTA);
         assertEquals(400,  user.getBalance(), DELTA);
         userService.buyLootBox(user.getUsername());
         //Lets get latest user data
         user = userService.findUserByUserNameWithCollections(user.getUsername());
-        assertEquals(1,  user.getNumberOfLootBoxes(),DELTA);
+        assertEquals(5,  user.getNumberOfLootBoxes(),DELTA);
         assertEquals(300,  user.getBalance(), DELTA);
         //Lets spend all of our ducats and see what happens when we try to buy
         userService.buyLootBox(user.getUsername());//200 ducats after

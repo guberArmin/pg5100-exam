@@ -41,7 +41,7 @@ import java.util.List;
 <span class="fc" id="L41">        user.setLastName(lastName);</span>
 <span class="fc" id="L42">        user.setHashedPassword(hashedPassword);</span>
 <span class="fc" id="L43">        user.setRoles(Collections.singleton(role));</span>
-<span class="fc" id="L44">        user.setNumberOfLootBoxes(0L);</span>
+<span class="fc" id="L44">        user.setNumberOfLootBoxes(4L);</span>
 <span class="fc" id="L45">        user.setEnabled(true);</span>
 <span class="fc" id="L46">        user.setEmail(email);</span>
 <span class="fc" id="L47">        user.setBalance(400D);//Lets give all new users some money to spend :)</span>
@@ -57,15 +57,16 @@ import java.util.List;
         }
 <span class="fc" id="L58">        return user;</span>
     }
+
     //Get owned items and copies back too
     public User findUserByUserNameWithCollections(String userName) {
-<span class="fc" id="L62">        User user = em.find(User.class, userName);</span>
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (user == null) {</span>
-<span class="nc" id="L64">            throw new IllegalStateException(&quot;No user with given userName&quot;);</span>
+<span class="fc" id="L63">        User user = em.find(User.class, userName);</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L65">            throw new IllegalStateException(&quot;No user with given userName&quot;);</span>
         }
-<span class="fc" id="L66">        user.getOwnedItems().size();</span>
-<span class="fc" id="L67">        user.getOwnedCopies().size();</span>
-<span class="fc" id="L68">        return user;</span>
+<span class="fc" id="L67">        user.getOwnedItems().size();</span>
+<span class="fc" id="L68">        user.getOwnedCopies().size();</span>
+<span class="fc" id="L69">        return user;</span>
     }
 
     /**
@@ -74,69 +75,74 @@ import java.util.List;
      * So it is enough to hold data about number of loot boxes user owns
      */
     public boolean buyLootBox(String username) {
-<span class="fc" id="L77">        User user = em.find(User.class, username);</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (user == null) {</span>
-<span class="nc" id="L79">            throw new IllegalArgumentException(&quot;No existing user: &quot; + username);</span>
+<span class="fc" id="L78">        User user = em.find(User.class, username);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L80">            throw new IllegalArgumentException(&quot;No existing user: &quot; + username);</span>
         }
 
         //One loot box costs 100 ducat
-<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (user.getBalance() &lt; 100) {</span>
-<span class="fc" id="L84">            throw new IllegalStateException(&quot;Insufficient funds&quot; + user.getBalance());</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (user.getBalance() &lt; 100) {</span>
+<span class="fc" id="L85">            throw new IllegalStateException(&quot;Insufficient funds&quot; + user.getBalance());</span>
         }
 
-<span class="fc" id="L87">        user.reduceBalance(100);</span>
-<span class="fc" id="L88">        user.increaseNumberOfLootBoxes(1);</span>
+<span class="fc" id="L88">        user.reduceBalance(100);</span>
+<span class="fc" id="L89">        user.increaseNumberOfLootBoxes(1);</span>
 
-<span class="fc" id="L90">        return true;</span>
+<span class="fc" id="L91">        return true;</span>
     }
 
-    public void redeemLootBox(String username, List&lt;Item&gt; items) {
-<span class="fc" id="L94">        User user = em.find(User.class, username);</span>
+    public void redeemLootBox(String username, List&lt;Item&gt; lootBox) {
+<span class="fc" id="L95">        User user = em.find(User.class, username);</span>
 
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (user == null) {</span>
-<span class="nc" id="L97">            throw new IllegalArgumentException(&quot;No existing user: &quot; + username);</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L98">            throw new IllegalArgumentException(&quot;No existing user: &quot; + username);</span>
         }
 
-<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if(user.getNumberOfLootBoxes() &lt; 1){</span>
-<span class="nc" id="L101">            throw new IllegalArgumentException(&quot;You have no loot boxes to open.&quot;);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (user.getNumberOfLootBoxes() &lt; 1) {</span>
+<span class="nc" id="L102">            throw new IllegalArgumentException(&quot;You have no loot boxes to open.&quot;);</span>
         }
 
-<span class="fc" id="L104">        user.reduceNumberOfLootBoxes(1);</span>
-<span class="fc" id="L105">        items.forEach(item -&gt; {</span>
+<span class="fc" id="L105">        user.reduceNumberOfLootBoxes(1);</span>
+<span class="fc" id="L106">        lootBox.forEach(item -&gt; {</span>
             //If user owns this item, we have to update number of copies
-<span class="fc" id="L107">            addItemToUser(user,item);</span>
-<span class="fc" id="L108">        });</span>
-<span class="fc" id="L109">    }</span>
+<span class="fc" id="L108">            addItemToUser(user, item);</span>
+<span class="fc" id="L109">        });</span>
+<span class="fc" id="L110">    }</span>
 
-    public void addItemToUser(User user, Item item){
-<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (user.getOwnedItems().contains(item)) {</span>
-<span class="fc" id="L113">            TypedQuery&lt;Copy&gt; query = em.createNamedQuery(Copy.GET_COPY_FOR_ITEM_AND_USER, Copy.class);</span>
-<span class="fc" id="L114">            query.setParameter(&quot;username&quot;, user.getUsername());</span>
-<span class="fc" id="L115">            query.setParameter(&quot;itemId&quot;, item.getId());</span>
+    public void addItemToUser(String username, Long itemId) {
+<span class="fc" id="L113">        User user = findUserByUserName(username);</span>
+<span class="fc" id="L114">        Item item = em.find(Item.class, itemId);</span>
+<span class="fc" id="L115">        addItemToUser(user, item);</span>
+<span class="fc" id="L116">    }</span>
 
-<span class="fc" id="L117">            List&lt;Copy&gt; copyList = query.getResultList();</span>
-<span class="fc bfc" id="L118" title="All 2 branches covered.">            if(copyList.isEmpty()){</span>
-<span class="fc" id="L119">                Copy copy = new Copy();</span>
+    public void addItemToUser(User user, Item item) {
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (user.getOwnedItems().contains(item)) {</span>
+<span class="fc" id="L120">            TypedQuery&lt;Copy&gt; query = em.createNamedQuery(Copy.GET_COPY_FOR_ITEM_AND_USER, Copy.class);</span>
+<span class="fc" id="L121">            query.setParameter(&quot;username&quot;, user.getUsername());</span>
+<span class="fc" id="L122">            query.setParameter(&quot;itemId&quot;, item.getId());</span>
 
-<span class="fc" id="L121">                CopyId copyId= new CopyId();</span>
-<span class="fc" id="L122">                copyId.setItem(item);</span>
-<span class="fc" id="L123">                copyId.setUser(user);</span>
+<span class="fc" id="L124">            List&lt;Copy&gt; copyList = query.getResultList();</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">            if (copyList.isEmpty()) {</span>
+<span class="fc" id="L126">                Copy copy = new Copy();</span>
 
-<span class="fc" id="L125">                copy.setNumberOfCopies(1L);</span>
-<span class="fc" id="L126">                copy.setCopyId(copyId);</span>
-<span class="fc" id="L127">                em.persist(copy);</span>
-<span class="fc" id="L128">            }</span>
-            else {
-<span class="fc" id="L130">                Copy copy = copyList.get(0);</span>
-<span class="fc" id="L131">                long newNumberOfCopies = copy.getNumberOfCopies() + 1;</span>
-<span class="fc" id="L132">                copy.setNumberOfCopies(newNumberOfCopies);</span>
+<span class="fc" id="L128">                CopyId copyId = new CopyId();</span>
+<span class="fc" id="L129">                copyId.setItem(item);</span>
+<span class="fc" id="L130">                copyId.setUser(user);</span>
+
+<span class="fc" id="L132">                copy.setNumberOfCopies(1L);</span>
+<span class="fc" id="L133">                copy.setCopyId(copyId);</span>
+<span class="fc" id="L134">                em.persist(copy);</span>
+<span class="fc" id="L135">            } else {</span>
+<span class="fc" id="L136">                Copy copy = copyList.get(0);</span>
+<span class="fc" id="L137">                long newNumberOfCopies = copy.getNumberOfCopies() + 1;</span>
+<span class="fc" id="L138">                copy.setNumberOfCopies(newNumberOfCopies);</span>
             }
-<span class="fc" id="L134">        }else{</span>
-<span class="fc" id="L135">            List&lt;Item&gt; list = user.getOwnedItems();</span>
-<span class="fc" id="L136">            list.add(item);</span>
-<span class="fc" id="L137">            user.setOwnedItems(list);</span>
+<span class="fc" id="L140">        } else {</span>
+<span class="fc" id="L141">            List&lt;Item&gt; list = user.getOwnedItems();</span>
+<span class="fc" id="L142">            list.add(item);</span>
+<span class="fc" id="L143">            user.setOwnedItems(list);</span>
         }
-<span class="fc" id="L139">    }</span>
+<span class="fc" id="L145">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

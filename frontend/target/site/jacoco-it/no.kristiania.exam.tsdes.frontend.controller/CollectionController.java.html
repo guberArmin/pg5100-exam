@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">exam-tsdes-frontend</a> &gt; <a href="index.source.html" class="el_package">no.kristiania.exam.tsdes.frontend.controller</a> &gt; <span class="el_source">CollectionController.java</span></div><h1>CollectionController.java</h1><pre class="source lang-java linenums">package no.kristiania.exam.tsdes.frontend.controller;
+
+import no.kristiania.exam.tsdes.backend.entities.Item;
+import no.kristiania.exam.tsdes.backend.entities.User;
+import no.kristiania.exam.tsdes.backend.services.CopyService;
+import no.kristiania.exam.tsdes.backend.services.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
+
+@RequestScoped
+@Named
+<span class="fc" id="L16">public class CollectionController implements Serializable {</span>
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private CopyService copyService;
+
+    public List&lt;Item&gt; getItems(int numberOfItems) {
+<span class="fc" id="L24">        return itemService.getLimitedNumberOfItems(numberOfItems, true);</span>
+    }
+
+    public String isGolden(Long itemId) {
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if (itemId == null)</span>
+<span class="nc" id="L29">            return &quot;&quot;;</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (itemService.getItem(itemId, false).getGolden())</span>
+<span class="fc" id="L31">            return &quot;cardContainer golden&quot;;</span>
+        else
+<span class="fc" id="L33">            return &quot;cardContainer regular&quot;;</span>
+    }
+
+    public boolean isDisabled(User user) {
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        return user.getBalance() &lt; 100;</span>
+    }
+
+    public boolean hasLootBoxes(User user) {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        return user.getNumberOfLootBoxes() &gt; 0;</span>
+    }
+
+
+    public String sellCopies(User user, Long itemId, Long numberOfCopies, Boolean sellAll) {
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (sellAll) {</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            for (int i = 0; i &lt; numberOfCopies; i++) {</span>
+<span class="nc" id="L48">                copyService.sellOneCopyOfItem(user.getUsername(), itemId);</span>
+            }
+        } else {
+<span class="fc" id="L51">            copyService.sellOneCopyOfItem(user.getUsername(), itemId);</span>
+        }
+<span class="fc" id="L53">        return &quot;/store.jsf?faces-redirect=true&quot;;</span>
+    }
+
+    public int getNumberOfCardsAvailable(User user){
+<span class="nc" id="L57">        return itemService.getAllItems(false).size();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -16,24 +16,32 @@ public class CopyService {
     @Autowired
     private EntityManager entityManager;
 
-    public void sellOneCopyOfItem(String username,Long itemId){
-        TypedQuery<Copy> query = entityManager.createNamedQuery(Copy.GET_COPY_FOR_ITEM_AND_USER,Copy.class);
+    public void sellOneCopyOfItem(String username, Long itemId) {
+        TypedQuery<Copy> query = entityManager.createNamedQuery(Copy.GET_COPY_FOR_ITEM_AND_USER, Copy.class);
         query.setParameter("username", username);
         query.setParameter("itemId", itemId);
 
-        try{
+        try {
             Copy copy = query.getSingleResult();
-            copy.setNumberOfCopies(copy.getNumberOfCopies()-1);
-            User user = entityManager.find(User.class,username);
-            //When you sell copy you get 40 ducats
-            user.increaseBalance(40);
-        }catch (Exception e){
+            long newNumberOfCopies = copy.getNumberOfCopies() - 1;
+            if (newNumberOfCopies == 0) {
+                entityManager.flush();
+                entityManager.clear();
+                Copy toDelete = entityManager.find(Copy.class, copy.getCopyId());
+                entityManager.remove(toDelete);
+            } else
+                copy.setNumberOfCopies(newNumberOfCopies);
+
+            User user = entityManager.find(User.class, username);
+            //When you sell copy you get 25 ducats
+            user.increaseBalance(25);
+        } catch (Exception e) {
             throw new IllegalStateException("No duplicates for given item!");
         }
     }
 
-    public List<Copy> getAllCopies(){
-        TypedQuery<Copy> query = entityManager.createNamedQuery(Copy.GET_ALL_COPIES,Copy.class);
+    public List<Copy> getAllCopies() {
+        TypedQuery<Copy> query = entityManager.createNamedQuery(Copy.GET_ALL_COPIES, Copy.class);
         return query.getResultList();
     }
 

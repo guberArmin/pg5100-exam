@@ -1,0 +1,15 @@
+# Created at 2020-05-07T16:16:01.926
+WARNING: An illegal reflective access operation has occurred
+
+# Created at 2020-05-07T16:16:01.927
+WARNING: Illegal reflective access by org.apache.catalina.loader.WebappClassLoaderBase (file:/home/armin/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.12/tomcat-embed-core-9.0.12.jar) to field java.io.ObjectStreamClass$Caches.localDescs
+
+# Created at 2020-05-07T16:16:01.927
+WARNING: Please consider reporting this to the maintainers of org.apache.catalina.loader.WebappClassLoaderBase
+
+# Created at 2020-05-07T16:16:01.927
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+
+# Created at 2020-05-07T16:16:01.927
+WARNING: All illegal access operations will be denied in a future release
+

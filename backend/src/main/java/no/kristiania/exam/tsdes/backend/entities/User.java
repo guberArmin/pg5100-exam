@@ -46,7 +46,7 @@ public class User {
     private List<Item> ownedItems;
 
     //It can happen that we have no copies
-    @OneToMany(mappedBy = "copyId.user")
+    @OneToMany(mappedBy = "copyId.user",cascade = CascadeType.ALL)
     private List<Copy> ownedCopies;
 
     private Long numberOfLootBoxes;

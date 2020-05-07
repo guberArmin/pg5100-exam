@@ -18,21 +18,22 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
     </title>
 </head>
 <body>
-<div class="navigation display-inline">
-    <a id="homepageLinkId" href="index.jsf" class="btn  p-1 m-3 btn-outline-primary">Home page</a>
+<div class="d-flex justify-content-center navigation">
+    <a id="homepageLinkId" href="index.jsf" class="btn btn-info">Home page</a>
     <sec:authenticated>
-        <a id="myCollectionBtn" class="btn  p-1 m-3 btn-info" href="collection.jsf">My collection</a>
-        <a id="storeBtn" class="btn  p-1 m-3 btn-info" href="store.jsf">Shop</a>
-        <a id="logoutBtn" class="btn  p-1 m-3 btn-outline-danger" href="/logout">Logout</a>
-        <h:outputLabel styleClass="display-inline">Welcome: </h:outputLabel><h:link
-            class="btn  p-1 m-3 btn-outline-success" id="userID"
-            outcome="user" value="#{userInfoController.userName}"/>
+        <a id="myCollectionBtn" class="btn  btn-info" href="collection.jsf">My collection</a>
+        <a id="storeBtn" class="btn btn-info" href="store.jsf">Store</a>
+        <a id="logoutBtn" class="btn  btn-info" href="/logout">Logout</a>
+        <h:outputLabel styleClass="welcomeLabel">Welcome:
+            <h:link
+                    class="btn btn-info" id="userID"
+                    outcome="user" value="#{userInfoController.userName}"/>
+        </h:outputLabel>
     </sec:authenticated>
 
     <sec:anonymous>
-        <p class="alert display-inline alert-warning">You are not logged in!</p>
-        <a id="linkToLoginId" href="login.jsf" class="btn p-1 m-3 btn-outline-danger">Log In</a>
-        <a id="linkToSignupId" href="signup.jsf" class="btn  p-1 m-3 btn-outline-success">Sign Up</a>
+        <a id="linkToLoginId" href="login.jsf" class="btn btn-info">Log In</a>
+        <a id="linkToSignupId" href="signup.jsf" class="btn btn-info">Sign Up</a>
     </sec:anonymous>
 </div>
 <ui:insert name="content"/>

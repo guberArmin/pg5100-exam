@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>User page</title>
-</head>
-<body>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
 
-</body>
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        User info
+    </ui:define>
+
+
+    <ui:define name="content">
+
+        <h:form prependId="false">
+            <div class = "alert alert-info m-4 d-flex justify-content-center">
+                <div>
+                    <c:set var="user" value="#{userInfoController.user}"/>
+                    <label>"Username:</label><h:outputLabel id="userNameLabel"  value=" #{user.username}"/><hr/>
+                    <h:outputLabel value="Name: #{user.name}"/><hr/>
+                    <h:outputLabel value="Last name: #{user.lastName}"/><hr/>
+                    <h:outputLabel value="Email: #{user.email}"/><hr/>
+                    <h:outputLabel value="You own: #{user.ownedItems.size()} out of #{collectionController.getNumberOfCardsAvailable(user)} possible cards."/><hr/>
+                    <h:outputLabel value="You have:"/>  <p id="numberOfCopies">#{user.ownedCopies.size()}</p>duplicates."<hr/>
+                </div>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+
+
 </html>

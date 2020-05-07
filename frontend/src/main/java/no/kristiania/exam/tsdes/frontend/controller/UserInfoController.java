@@ -27,12 +27,18 @@ public class UserInfoController {
         return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
     }
 
-    public User getUser(){
+    public User getUser() {
         return userService.findUserByUserNameWithCollections(getUserName());
     }
 
-    public boolean buyLootBox(String username){
-        return userService.buyLootBox(username);
+    public String buyLootBox(String username) {
+        userService.buyLootBox(username);
+        return "/store.jsf?faces-redirect=true";
     }
+
+    public boolean hasDuplicates(String username) {
+        return userService.findUserByUserName(username).getOwnedCopies().size() > 0;
+    }
+
 
 }
