@@ -10,8 +10,8 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>no.kristiania.exam.in.tsdes</groupId>
-        <artifactId>exam-in-tsdes</artifactId>
+        <groupId>no.kristiania.exam.tsdes</groupId>
+        <artifactId>exam-tsdes</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <build>
@@ -90,11 +90,7 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
                     <argLine>${argLine} -Xms512m -Xmx4096m</argLine>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M4</version>
-            </plugin>
+
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -134,22 +130,44 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
                         </execution>
                     </executions>
                 </plugin>
+
+                <plugin>
+                    <groupId>com.heroku.sdk</groupId>
+                    <artifactId>heroku-maven-plugin</artifactId>
+                    <version>2.0.2</version>
+                    <configuration>
+                        <appName>pg5100-exam-2020</appName>
+                        <includeTarget>false</includeTarget>
+                        <includes>
+                            <include>target/exam-in-tsdes-exec.jar</include>
+                        </includes>
+                        <processTypes>
+                            <web>java -Dserver.port=$PORT -jar target/exam-in-tsdes-exec.jar</web>
+                        </processTypes>
+                        <jdkVersion>11</jdkVersion>
+                    </configuration>
+                </plugin>
             </plugins>
+
         </pluginManagement>
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>no.kristiania.exam.tsdes</groupId>
+            <artifactId>exam-tsdes-backend</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
         <!-- Added for some special functionality -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>7.0</version>
         </dependency>
-        <dependency>
-            <groupId>no.kristiania.exam.in.tsdes</groupId>
-            <artifactId>exam-tsdes-backend</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -288,5 +306,6 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
 
         </dependencies>
     </dependencyManagement>
+
 
 </project>
