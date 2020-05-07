@@ -83,5 +83,15 @@
 }
 
 .my-column {
+    margin: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
     flex: 50%;
+    box-shadow: inset 10px 10px 5px -5px rgba(0,0,0,0.24);
+    padding: 10px;
+}
+
+#numberOfCopies {
+    padding-left: 10px;
+    padding-right: 10px;
 }

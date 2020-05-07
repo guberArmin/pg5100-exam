@@ -28,13 +28,16 @@
         </script>
         <div class="my-row m-3">
             <div class="my-column">
-                <button id="collectionBtn" class="btn btn-info"
+                <button id="collectionBtn" class="btn btn-info m-3"
                         onclick="toggleCollectionAndDuplicates(this.id)">Show duplicates
                 </button>
                 <div class="m-3">
 
                     <div id="myCollectionDiv" class="cards-parent">
-                        <h2 class="alert alert-info p-3 m-3">Your collection of cards</h2>
+                        <h:outputLabel rendered="#{collectionController.hasCards(userInfoController.user)}"
+                                       class="h3 alert alert-info p-3 m-3">Your collection of cards</h:outputLabel>
+                        <h:outputLabel rendered="#{!collectionController.hasCards(userInfoController.user)}"
+                                       class="h3 alert alert-info p-3 m-3">You own no cards. Open some loot boxes</h:outputLabel>
                         <ui:repeat value="#{userInfoController.user.ownedItems}" var="card">
                             <h:panelGroup styleClass="#{collectionController.isGolden(card.id)}" layout="block">
                                 <h3 class="my-card-title">#{card.title}</h3>
@@ -65,7 +68,8 @@
                                 <h:outputLabel styleClass="alert alert-dark">Defense: #{card.defense}</h:outputLabel>
                                 <hr/>
                                 <h:outputLabel>Rarity: #{card.rarity}</h:outputLabel><br/>
-                                <h:outputLabel>Number of copies: <p class="numberOfCopies">#{copy.numberOfCopies}</p></h:outputLabel>
+                                <h:outputLabel>Number of copies: <p class="numberOfCopies">#{copy.numberOfCopies}</p>
+                                </h:outputLabel>
                             </h:panelGroup>
                         </ui:repeat>
                     </div>
@@ -73,12 +77,14 @@
             </div>
 
             <div class="my-column">
-                <div class="m-3">
-                    <h:outputLabel id="lootBoxNrLabel">You have: <p id ="numberOfBoxesParagraph">#{userInfoController.user.numberOfLootBoxes}</p> loot boxes</h:outputLabel>
+                <div class="d-flex justify-content-center m-3">
+                    <h:outputLabel class="d-flex align-items-center alert alert-info" id="lootBoxNrLabel">You have:
+                        <p class="alert alert-danger m-1"
+                           id="numberOfBoxesParagraph">#{userInfoController.user.numberOfLootBoxes}</p> loot boxes</h:outputLabel>
                     <h:form rendered="#{userInfoController.user.numberOfLootBoxes > 0}" prependId="false"
                             id="redeemForm">
-                        <h:commandButton value="Reedeem box"
-                                         styleClass="btn btn-success"
+                        <h:commandButton value="Redeem box"
+                                         styleClass="btn btn-success m-3"
                                          action="#{lootBoxController.redeemLootBox(userInfoController.userName)}"
                                          id="redeemLootBoxBtn"/>
                     </h:form>
@@ -88,6 +94,7 @@
                         <ui:param name="listOfCards" value="#{lootBoxController.lootBoxContent}"/>
                     </c:if>
                     <h2><h:outputLabel rendered="#{lootBoxController.lootBoxContent.size()>0}"
+                                       style="white-space: nowrap; width: 100%; text-align: center"
                                        class="alert alert-success p-3 m-3">You got following card from last loot box</h:outputLabel>
                     </h2>
                     <c:forEach var="card" items="#{lootBoxController.lootBoxContent}">

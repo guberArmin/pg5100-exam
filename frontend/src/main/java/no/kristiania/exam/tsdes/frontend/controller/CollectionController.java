@@ -10,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestScoped
 @Named
@@ -53,8 +54,24 @@ public class CollectionController implements Serializable {
         return "/store.jsf?faces-redirect=true";
     }
 
-    public int getNumberOfCardsAvailable(User user){
+    public int getNumberOfCardsAvailable(User user) {
         return itemService.getAllItems(false).size();
     }
 
+    public boolean hasCards(User user) {
+        return user.getOwnedItems().size() > 0;
+    }
+
+    //Inspired by: https://www.baeldung.com/java-streams-find-list-items
+    public List<Item> getMissingCards(User user) {
+        return itemService.getAllItems(false)
+                .stream()
+                .filter(item -> user.getOwnedItems()
+                        .stream().
+                                noneMatch(
+                                        userItem ->
+                                                userItem.getId().equals(item.getId()))
+                )
+                .collect(Collectors.toList());
+    }
 }

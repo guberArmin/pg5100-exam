@@ -15,10 +15,19 @@
 
 
     <ui:define name="content">
-        <div class="alert alert-info" style="font-size: 20px">Your balance: <label
-                id="balanceLabel" class="alert alert-danger"> #{userInfoController.user.balance}</label><br/><br/>
-            You own: <label id="numberOfLootBoxLbl">#{userInfoController.user.numberOfLootBoxes}</label> loot boxes.
-            <h:form prependId="false"
+        <div class="alert alert-info">
+            <div class="d-flex justify-content-center " style="font-size: 20px">
+                <div>
+                    <div> Your balance:
+                        <label id="balanceLabel" class="alert alert-danger"> #{userInfoController.user.balance}</label>
+                    </div>
+                    <div>
+                        You own:
+                        <label class="alert alert-danger" id="numberOfLootBoxLbl">#{userInfoController.user.numberOfLootBoxes}</label> loot boxes.
+                    </div>
+                </div>
+            </div>
+            <h:form styleClass=" d-flex justify-content-center " prependId="false"
                     id="redeemForm">
                 <h:commandButton value="Buy loot box"
                                  disabled="#{collectionController.isDisabled(userInfoController.user)}"
@@ -35,13 +44,12 @@
             </h:form>
 
         </div>
-
         <div class="m-3">
             <!-- According to exam user should be able: • mill/sell a copy of an item for in-game currency
     That is why only copys (duplicates) are sellable.
 -->
-            <h:outputLabel rendered="#{userInfoController.hasDuplicates(userInfoController.userName)}">
-                <h2 class="alert alert-info p-3 m-3">You can sell following cards
+            <h:outputLabel style="display: contents; text-align: center" rendered="#{userInfoController.hasDuplicates(userInfoController.userName)}">
+                <h2 class="alert alert-success p-3 m-3">You can sell following cards
                     <i>(only duplicates are sellable):</i></h2>
             </h:outputLabel>
 

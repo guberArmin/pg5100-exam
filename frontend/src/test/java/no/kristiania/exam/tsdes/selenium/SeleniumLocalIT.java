@@ -212,7 +212,7 @@ public class SeleniumLocalIT {
 
 
     @Test
-    public void testUserPage(){
+    public void testUserPageInfo(){
         String username = getUniqueId();
         home = createNewUser(username,"345");
         UserPO userPO = home.toUserInfo();
@@ -220,6 +220,15 @@ public class SeleniumLocalIT {
         assertEquals(userPO.getDisplayedUsername(),username);
         assertEquals(userPO.getNumberOfCopies(),0);
     }
+
+    @Test
+    void testUsersMissingCards() {
+        home = createNewUser(getUniqueId(),"3232");
+        //New user should be missing all cards, in my cas 15
+        UserPO userPO = home.toUserInfo();
+        assertEquals(15,userPO.getNumberOfMissingDisplayed());
+    }
+
     private int openLootBoxes() {
         CollectionPO collectionPO = home.toCollection();
         assertEquals(0, collectionPO.getNumberOfItemsInCollection());
