@@ -46,7 +46,7 @@ things that I am going to discuss later.
 [Screenshoot of jacoco report](./docs/jacoco.png)
 ## Default data
 - I have initialized database with 15 cards.
-- In addition to cards there are some other users:
+- In addition to cards there are some default users:
   - **Username**: `kitkat` **Password**: `123123`
   - **Username**: `lollipop` **Password**: `123123`
   - **Username**: `oreo` **Password**: `123123`
@@ -54,7 +54,7 @@ things that I am going to discuss later.
 ## Ambiguities
 
 - R1 `mill/sell a copy of an item for in-game currency `. I was not sure should 
-this be implemented that just copies (duplicates) can be sold, or all cards.
+this be implemented in a way that just copies (duplicates) can be sold, or all cards.
 I went with implementation where only duplicates are sellable. This decision did
 not impact my coding greatly as it does not make much of a difference (from
 programming point of view) is last card sellable or not.
@@ -84,6 +84,9 @@ and screenshot of small portion of deployment. I could not take screen shoot of 
 log as my github id is same as my name and last name. Even in this small portion I had 
 to redact my username. Screenshot can be found [here](./docs/travis-ci.png) 
 
+- Cards are divided in 5 categories `standard`, `common`, `rare`, `epic` or `legendary`.
+To distingiush in chances of getting each I have implemented simple rarity algorithm. 
+This algorithm is found under `ItemService.java` in method `getRandomItem()` line `103` in code.
 ## Bugs
 - There are no known bugs in application. I did my best to test edge cases and 
 to prevent bugs.
