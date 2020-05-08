@@ -43,7 +43,7 @@ things that I am going to discuss later.
 - Backend: 93%
 - Total: 91%
 
-[Screenshoot of jacoco report](/docs/jacoco.png)
+[Screenshoot of jacoco report](./docs/jacoco.png)
 ## Default data
 - I have initialized database with 15 cards.
 - In addition to cards there are some other users:
@@ -82,7 +82,7 @@ for given user are displayed.
 travis-ci. As proof of deployment I have provided travis-ci badge at beginning of file
 and screenshot of small portion of deployment. I could not take screen shoot of whole
 log as my github id is same as my name and last name. Even in this small portion I had 
-to redact my username. Screenshot can be found [here](/docs/travis-ci.png) 
+to redact my username. Screenshot can be found [here](./docs/travis-ci.png) 
 
 ## Bugs
 - There are no known bugs in application. I did my best to test edge cases and 
