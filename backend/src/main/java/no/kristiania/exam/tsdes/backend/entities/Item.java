@@ -41,7 +41,7 @@ public class Item {
     @NotNull
     private String rarity;
 
-    //Especially valuable type of cards
+    //To show off you can have golden card
     @NotNull
     private Boolean isGolden;
 

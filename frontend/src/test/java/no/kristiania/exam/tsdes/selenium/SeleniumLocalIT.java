@@ -1,6 +1,10 @@
 package no.kristiania.exam.tsdes.selenium;
 
 import no.kristiania.exam.tsdes.Application;
+import no.kristiania.exam.tsdes.backend.entities.Item;
+import no.kristiania.exam.tsdes.backend.entities.User;
+import no.kristiania.exam.tsdes.backend.services.ItemService;
+import no.kristiania.exam.tsdes.backend.services.UserService;
 import no.kristiania.exam.tsdes.selenium.po.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
@@ -34,6 +39,12 @@ public class SeleniumLocalIT {
     private static WebDriver driver;
 
     private static final Double DELTA = 0.001;
+
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private UserService userService;
 
     @LocalServerPort
     private int port;
@@ -212,21 +223,23 @@ public class SeleniumLocalIT {
 
 
     @Test
-    public void testUserPageInfo(){
+    public void testUserPageInfo() {
         String username = getUniqueId();
-        home = createNewUser(username,"345");
+        home = createNewUser(username, "345");
         UserPO userPO = home.toUserInfo();
 
-        assertEquals(userPO.getDisplayedUsername(),username);
-        assertEquals(userPO.getNumberOfCopies(),0);
+        assertEquals(userPO.getDisplayedUsername(), username);
+        assertEquals(userPO.getNumberOfCopies(), 0);
     }
+
+
 
     @Test
     void testUsersMissingCards() {
-        home = createNewUser(getUniqueId(),"3232");
+        home = createNewUser(getUniqueId(), "3232");
         //New user should be missing all cards, in my cas 15
         UserPO userPO = home.toUserInfo();
-        assertEquals(15,userPO.getNumberOfMissingDisplayed());
+        assertEquals(15, userPO.getNumberOfMissingDisplayed());
     }
 
     private int openLootBoxes() {

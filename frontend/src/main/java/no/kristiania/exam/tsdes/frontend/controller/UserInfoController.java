@@ -40,5 +40,8 @@ public class UserInfoController {
         return userService.findUserByUserName(username).getOwnedCopies().size() > 0;
     }
 
+    public boolean isAdmin(User user){
+        return user.getRoles().contains("admin");
+    }
 
 }

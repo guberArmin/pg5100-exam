@@ -62,6 +62,10 @@ public class CollectionController implements Serializable {
         return user.getOwnedItems().size() > 0;
     }
 
+    public boolean hasCopies(User user) {
+        return user.getOwnedCopies().size() > 0;
+    }
+
     //Inspired by: https://www.baeldung.com/java-streams-find-list-items
     public List<Item> getMissingCards(User user) {
         return itemService.getAllItems(false)
@@ -74,4 +78,6 @@ public class CollectionController implements Serializable {
                 )
                 .collect(Collectors.toList());
     }
+
+
 }

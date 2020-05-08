@@ -28,7 +28,7 @@
 }
 
 .cardContainer {
-    display: table;
+    display: block;
     border: solid grey 1px;
     border-radius: 5px;
     text-align: center;

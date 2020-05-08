@@ -55,7 +55,10 @@
                 </div>
                 <div class="m-3">
                     <div id="myDuplicatesDiv" class="cards-parent hide-div">
-                        <h2 class="alert alert-info p-3 m-3">You own following duplicates</h2>
+                        <h:outputLabel rendered="#{collectionController.hasCopies(userInfoController.user)}"
+                                       class="h3 alert alert-info p-3 m-3">You own following duplicates</h:outputLabel>
+                        <h:outputLabel rendered="#{!collectionController.hasCopies(userInfoController.user)}"
+                                       class="h3 alert alert-info p-3 m-3">You own no duplicates</h:outputLabel>
                         <ui:repeat value="#{userInfoController.user.ownedCopies}" var="copy">
                             <c:set var="card" value="#{copy.copyId.item}"/>
                             <h:panelGroup styleClass="#{collectionController.isGolden(card.id)}" layout="block">
@@ -76,7 +79,7 @@
                 </div>
             </div>
 
-            <div class="my-column">
+            <div class="my-column" style="display: table">
                 <div class="d-flex justify-content-center m-3">
                     <h:outputLabel class="d-flex align-items-center alert alert-info" id="lootBoxNrLabel">You have:
                         <p class="alert alert-danger m-1"
@@ -95,7 +98,7 @@
                     </c:if>
                     <h2><h:outputLabel rendered="#{lootBoxController.lootBoxContent.size()>0}"
                                        style="white-space: nowrap; width: 100%; text-align: center"
-                                       class="alert alert-success p-3 m-3">You got following card from last loot box</h:outputLabel>
+                                       class="alert alert-success p-3 m-3">You got following cards from last loot box</h:outputLabel>
                     </h2>
                     <c:forEach var="card" items="#{lootBoxController.lootBoxContent}">
                         <div class="m-3">

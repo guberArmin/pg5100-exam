@@ -14,46 +14,44 @@
 
     <ui:define name="content">
 
-        <h:form prependId="false">
-            <div class="my-row m-3">
-                <div style="display: table"  class="my-column alert alert-info p-5 m-5 font-weight-bold">
+        <div class="my-row m-3">
+            <div style="display: table" class="my-column alert alert-info p-5 m-5 font-weight-bold">
 
-                    <c:set var="user" value="#{userInfoController.user}"/>
-                    <label style="padding-right: 5px">Username: </label><h:outputLabel id="userNameLabel"
-                                                                                       value=" #{user.username}"/>
+                <c:set var="user" value="#{userInfoController.user}"/>
+                <label style="padding-right: 5px">Username: </label><h:outputLabel id="userNameLabel"
+                                                                                   value=" #{user.username}"/>
+                <hr/>
+                <h:outputLabel value="Name: #{user.name}"/>
+                <hr/>
+                <h:outputLabel value="Last name: #{user.lastName}"/>
+                <hr/>
+                <h:outputLabel value="Email: #{user.email}"/>
+                <hr/>
+                <h:outputLabel
+                        value="You own: #{user.ownedItems.size()} out of #{collectionController.getNumberOfCardsAvailable(user)} possible cards."/>
+                <hr/>
+                <h:outputLabel style="display: flex" value="You have:"><p
+                        id="numberOfCopies">#{user.ownedCopies.size()}</p>duplicates.
                     <hr/>
-                    <h:outputLabel  value="Name: #{user.name}"/>
-                    <hr/>
-                    <h:outputLabel value="Last name: #{user.lastName}"/>
-                    <hr/>
-                    <h:outputLabel value="Email: #{user.email}"/>
-                    <hr/>
-                    <h:outputLabel
-                            value="You own: #{user.ownedItems.size()} out of #{collectionController.getNumberOfCardsAvailable(user)} possible cards."/>
-                    <hr/>
-                    <h:outputLabel style="display: flex" value="You have:"><p
-                            id="numberOfCopies">#{user.ownedCopies.size()}</p>duplicates.
-                        <hr/>
-                    </h:outputLabel>
-                </div>
-                <div class="my-column alert alert-info p-5 m-5">
-                    <h2 style="text-align: center" class="alert alert-danger p-3 m-3">You are missing following cards:</h2>
-                    <ui:repeat value="#{collectionController.getMissingCards(userInfoController.user)}" var="card">
-                        <h:panelGroup styleClass="#{collectionController.isGolden(card.id)}" layout="block">
-                            <h3 class="my-card-title">#{card.title}</h3>
-                            <hr/>
-                            <h:outputLabel>#{card.description}</h:outputLabel>
-                            <hr/>
-                            <h:outputLabel
-                                    styleClass="alert alert-danger attack">Attack: #{card.attack}</h:outputLabel>
-                            <h:outputLabel styleClass="alert alert-dark">Defense: #{card.defense}</h:outputLabel>
-                            <hr/>
-                            <h:outputLabel>Rarity: #{card.rarity}</h:outputLabel><br/>
-                        </h:panelGroup>
-                    </ui:repeat>
-                </div>
+                </h:outputLabel>
             </div>
-        </h:form>
+            <div class="my-column alert alert-info p-5 m-5">
+                <h2 style="text-align: center" class="alert alert-danger p-3 m-3">You are missing following cards:</h2>
+                <ui:repeat value="#{collectionController.getMissingCards(userInfoController.user)}" var="card">
+                    <h:panelGroup styleClass="#{collectionController.isGolden(card.id)}" layout="block">
+                        <h3 class="my-card-title">#{card.title}</h3>
+                        <hr/>
+                        <h:outputLabel>#{card.description}</h:outputLabel>
+                        <hr/>
+                        <h:outputLabel
+                                styleClass="alert alert-danger attack">Attack: #{card.attack}</h:outputLabel>
+                        <h:outputLabel styleClass="alert alert-dark">Defense: #{card.defense}</h:outputLabel>
+                        <hr/>
+                        <h:outputLabel>Rarity: #{card.rarity}</h:outputLabel><br/>
+                    </h:panelGroup>
+                </ui:repeat>
+            </div>
+        </div>
 
     </ui:define>
 
