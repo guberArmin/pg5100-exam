@@ -94,9 +94,3 @@ to prevent bugs.
 - Version on cloud is tested, but not in
 so much details as one running on `localhost`. As it runs on cloud it could be expected
 that there are some minor differences compared to local version.
-
-
-
-golden cards
-
-rarity
