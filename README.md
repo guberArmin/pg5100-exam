@@ -5,6 +5,8 @@
 This is simple gotcha game implementation in springboot. This game is inspired by 
 hearthstone and cards from that game. But in general it would not be huge problem
 to switch it to some other type of gotcha game.
+Website is deployed to heroku and can be found at [this link](https://pg5100-exam-2020.herokuapp.com/) (it could take a bit for page to start, since it is hosted on free heroku hosting).
+
 #### Rules
  - Each newly registered user gets 4 loot boxes
  - Each loot box has 3 items
