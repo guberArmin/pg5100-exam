@@ -2,9 +2,13 @@
 # Exam in Testing, Security and Development of Enterprise Systems
 
 ## About
+This is solution of 48 hours exam in `Testing, Security and Development of Enterprise Systems` with focuse on springboot. 
+You can read exam text [here](Exam_text_pg5100.pdf)
+
 This is simple gotcha game implementation in springboot. This game is inspired by 
 hearthstone and cards from that game. But in general it would not be huge problem
 to switch it to some other type of gotcha game.
+
 Website is deployed to heroku and can be found at [this link](https://pg5100-exam-2020.herokuapp.com/) (it could take a bit for page to start, since it is hosted on free heroku hosting).
 
 #### Rules
