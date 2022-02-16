@@ -182,7 +182,7 @@ https://github.com/arcuri82/testing_security_development_enterprise_systems/blob
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.1.4</version>
+            <version>42.3.3</version>
         </dependency>
 
         <!-- Add security to spring boot -->
